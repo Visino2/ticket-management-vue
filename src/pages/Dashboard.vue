@@ -1,12 +1,21 @@
 <template>
   <div class="min-h-screen flex flex-col bg-gray-50">
     <Navbar />
+
     <main class="flex-1 py-12 px-6">
       <div class="container-1440">
         <div class="flex items-center justify-between">
           <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
           <div class="flex gap-3">
-            <router-link to="/tickets" class="px-4 py-2 rounded-lg bg-blue-600 text-white">Manage Tickets</router-link>
+            <router-link to="/tickets" class="px-4 py-2 rounded-lg bg-blue-600 text-white">
+              Manage Tickets
+            </router-link>
+            <button
+              @click="handleLogout"
+              class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300"
+            >
+              Logout
+            </button>
           </div>
         </div>
 
@@ -37,7 +46,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Toast from '@/components/Toast.vue'
@@ -65,13 +74,20 @@ function loadStats() {
 }
 
 onMounted(() => {
+  const currentUser = JSON.parse(localStorage.getItem('ticketapp_currentUser'))
+  if (!currentUser) {
+    showToast('Please login first', 'error')
+    setTimeout(() => router.push('/auth/login'), 1000)
+    return
+  }
+
   loadStats()
 })
 
 function handleLogout() {
-  localStorage.removeItem('ticketapp_session')
-  localStorage.removeItem('ticketapp_user')
-  router.push('/auth/login')
+  localStorage.removeItem('ticketapp_currentUser')
+  showToast('Logged out successfully', 'success')
+  setTimeout(() => router.push('/auth/login'), 800)
 }
 </script>
 

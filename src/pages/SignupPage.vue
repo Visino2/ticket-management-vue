@@ -92,19 +92,26 @@ function handleSubmit() {
   }
 
   const users = JSON.parse(localStorage.getItem('ticketapp_users') || '[]')
+
   if (users.find(u => u.email === formData.value.email)) {
     showToast('Email already exists', 'error')
     return
   }
 
-  users.push({
+  const newUser = {
     name: formData.value.name,
     email: formData.value.email,
     password: formData.value.password,
-  })
+  }
+
+  users.push(newUser)
   localStorage.setItem('ticketapp_users', JSON.stringify(users))
+  localStorage.setItem('ticketapp_currentUser', JSON.stringify(newUser))
+
   showToast('Account created successfully!', 'success')
-  setTimeout(() => router.push('/auth/login'), 1200)
+  formData.value = { name: '', email: '', password: '' } 
+
+  setTimeout(() => router.push('/dashboard'), 1200)
 }
 
 function showToast(msg, type = 'success') {
@@ -112,5 +119,3 @@ function showToast(msg, type = 'success') {
   setTimeout(() => (toast.value.show = false), 3000)
 }
 </script>
-
-<style scoped></style>

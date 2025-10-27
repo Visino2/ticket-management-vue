@@ -58,7 +58,7 @@ import { Ticket, Clock, Settings } from 'lucide-vue-next'
               Get Started Free
             </Motion>
 
-            <Motion
+            <Motion 
               tag="button"
               :whileHover="{ scale: 1.05, y: -5 }"
               :whileTap="{ scale: 0.95 }"

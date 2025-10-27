@@ -52,7 +52,7 @@ function navigateTo(path) {
 
         <Motion
           tag="button"
-        @click="navigateTo('/dashboard')"
+          @click="navigateTo('/auth/signup/')"
           :whileHover="{ scale: 1.05, boxShadow: '0 10px 25px rgba(79,70,229,0.3)' }"
           :whileTap="{ scale: 0.95 }"
           class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
@@ -85,7 +85,7 @@ function navigateTo(path) {
           Login
         </button>
         <button
-         @click="navigateTo('/dashboard')"
+          @click="navigateTo('/auth/signup')"
           class="px-4 py-2 bg-indigo-600 text-white rounded-lg"
         >
           Get Started
